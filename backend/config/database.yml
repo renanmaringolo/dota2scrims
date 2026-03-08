@@ -6,9 +6,11 @@ default: &default
 
 development:
   <<: *default
+  database: dota2scrims_development
 
 test:
   <<: *default
+  database: dota2scrims_test
 
 production:
   <<: *default
