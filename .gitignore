@@ -1,0 +1,29 @@
+# Claude Code
+.claude/
+.local/
+.mcp.json
+
+# Backend (Rails)
+backend/config/master.key
+backend/log/*
+backend/tmp/*
+backend/storage/*
+backend/.env*.local
+
+# Frontend (React)
+frontend/node_modules/
+frontend/dist/
+frontend/.env*.local
+
+# OS
+.DS_Store
+*.swp
+*.swo
+
+# IDE
+.idea/
+.vscode/
+*.code-workspace
+
+# Environment
+.env*.local

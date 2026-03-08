@@ -1,0 +1,9 @@
+.git
+.gitignore
+log/*
+tmp/*
+storage/*
+config/master.key
+node_modules
+.dockerignore
+Dockerfile
