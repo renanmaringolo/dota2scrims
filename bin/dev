@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-docker compose up "$@"
+echo "==> Starting Dota2Scrims development environment..."
+echo "    Backend:  http://localhost:3000"
+echo "    Frontend: http://localhost:5173"
+echo ""
+
+docker compose up --build "$@"

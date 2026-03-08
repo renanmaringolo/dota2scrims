@@ -1,6 +1,10 @@
 .git
 .gitignore
+.github
+.env*
 node_modules
 dist
+coverage
+docker-compose*.yml
 .dockerignore
 Dockerfile

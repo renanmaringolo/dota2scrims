@@ -1,9 +1,16 @@
 .git
 .gitignore
+.github
+.bundle
+.env*
 log/*
 tmp/*
 storage/*
 config/master.key
 node_modules
+vendor/bundle
+spec/reports
+coverage
+docker-compose*.yml
 .dockerignore
 Dockerfile

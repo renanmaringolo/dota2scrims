@@ -117,10 +117,11 @@ services:
       SIDEKIQ_CONCURRENCY: 5
       ACTION_CABLE_URL: ws://localhost:3000/cable
       FRONTEND_URL: http://localhost:5173
+      RAILS_LOG_TO_STDOUT: "true"
     volumes:
       - ./backend:/app
       - backend_gems:/usr/local/bundle
-    command: bundle exec sidekiq
+    command: bundle exec sidekiq -C config/sidekiq.yml
     networks:
       - dota2scrims_network
 
