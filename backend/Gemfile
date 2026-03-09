@@ -1,15 +1,15 @@
 source 'https://rubygems.org'
 
-gem 'bootsnap', require: false
-gem 'devise'
-gem 'devise-jwt'
-gem 'pg', '~> 1.1'
-gem 'puma', '>= 5.0'
-gem 'rack-cors'
+gem 'bootsnap', '~> 1.23', require: false
+gem 'devise', '~> 5.0'
+gem 'devise-jwt', '~> 0.13'
+gem 'pg', '~> 1.6'
+gem 'puma', '~> 7.2'
+gem 'rack-cors', '~> 3.0'
 gem 'rails', '~> 8.1.2'
-gem 'redis'
-gem 'sidekiq'
-gem 'sidekiq-cron'
+gem 'redis', '~> 5.4'
+gem 'sidekiq', '~> 8.1'
+gem 'sidekiq-cron', '~> 2.3'
 gem 'tzinfo-data', platforms: %i[windows jruby]
 
 group :development, :test do

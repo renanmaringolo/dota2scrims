@@ -366,27 +366,27 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  bootsnap
+  bootsnap (~> 1.23)
   brakeman
   bundler-audit
   database_cleaner-active_record (~> 2.2)
   debug
-  devise
-  devise-jwt
+  devise (~> 5.0)
+  devise-jwt (~> 0.13)
   factory_bot_rails (~> 6.4)
   faker (~> 3.5)
-  pg (~> 1.1)
-  puma (>= 5.0)
-  rack-cors
+  pg (~> 1.6)
+  puma (~> 7.2)
+  rack-cors (~> 3.0)
   rails (~> 8.1.2)
-  redis
+  redis (~> 5.4)
   rspec-rails (~> 7.1)
   rubocop-factory_bot
   rubocop-rails
   rubocop-rspec
   shoulda-matchers (~> 6.4)
-  sidekiq
-  sidekiq-cron
+  sidekiq (~> 8.1)
+  sidekiq-cron (~> 2.3)
   simplecov (~> 0.22)
   timecop (~> 0.9)
   tzinfo-data
