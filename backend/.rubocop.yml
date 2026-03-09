@@ -21,11 +21,14 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Metrics/BlockLength:
-  Exclude:
-    - spec/**/*
-    - config/**/*
-    - config/routes.rb
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+
+Layout/LineLength:
+  Max: 120
 
 Metrics/MethodLength:
   Max: 15
@@ -33,11 +36,27 @@ Metrics/MethodLength:
 Metrics/ClassLength:
   Max: 100
 
-Layout/LineLength:
-  Max: 120
+Metrics/AbcSize:
+  Max: 20
+
+Metrics/CyclomaticComplexity:
+  Max: 8
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+    - config/**/*
+    - config/routes.rb
 
 Rails/SkipsModelValidations:
-  Enabled: false
+  Exclude:
+    - db/migrate/**/*
+    - db/seeds.rb
+    - app/jobs/**/*
+
+Rails/Exit:
+  Exclude:
+    - spec/**/*
 
 RSpec/ExampleLength:
   Max: 20
@@ -47,7 +66,3 @@ RSpec/MultipleExpectations:
 
 RSpec/NestedGroups:
   Max: 4
-
-Rails/Exit:
-  Exclude:
-    - spec/**/*
