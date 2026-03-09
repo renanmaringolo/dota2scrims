@@ -141,6 +141,25 @@ Toda documentacao tecnica esta em `.local/` (ignorada pelo git):
 └── specs/         # Outputs do @spec-writer
 ```
 
+## Pull Requests
+
+**Título**: `[CARD-NNN] <emoji> <descrição em português>`
+
+| Emoji | Tipo | Emoji | Tipo |
+|-------|------|-------|------|
+| ✨ | `feat` | 🔧 | `chore` |
+| 🐛 | `fix` | 📦 | `build` |
+| 🚀 | `enhancement` | 🎨 | `style` |
+| ♻️ | `refactor` | ⚡ | `perf` |
+| 🧪 | `test` | 🔒 | `security` |
+| 🗃️ | `db` | 🗑️ | `remove` |
+
+- Template em `.github/PULL_REQUEST_TEMPLATE.md`
+- Regras detalhadas em `.claude/rules/pull-requests.md`
+- Um PR por story, branch `feat/card-NNN-descricao-curta`
+- Reviewer interno aprova ANTES de abrir o PR
+- `Closes #N` para vincular issues automaticamente
+
 ## Board GitHub
 
 19 stories organizadas em 5 fases no repo `renanmaringolo/dota2scrims`.
