@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+  include Devise::JWT::RevocationStrategies::JTIMatcher
+
+  devise :database_authenticatable, :registerable, :validatable,
+         :jwt_authenticatable, jwt_revocation_strategy: self
+
   enum :role, {
     admin: 'admin',
     manager: 'manager',
@@ -6,10 +11,7 @@ class User < ApplicationRecord
 
   normalizes :email, with: ->(email) { email.strip.downcase }
 
-  validates :email, presence: true, uniqueness: { case_sensitive: false },
-                    format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :role,  presence: true
-  validates :jti,   presence: true, uniqueness: true
-
   has_many :teams, foreign_key: :manager_id, dependent: :destroy, inverse_of: :manager
+
+  validates :role, presence: true
 end
