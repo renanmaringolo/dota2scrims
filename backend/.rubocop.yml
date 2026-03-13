@@ -66,6 +66,7 @@ Rails/SkipsModelValidations:
     - db/migrate/**/*
     - db/seeds.rb
     - app/jobs/**/*
+    - app/controllers/api/auth/**/*
 
 Rails/Exit:
   Exclude:

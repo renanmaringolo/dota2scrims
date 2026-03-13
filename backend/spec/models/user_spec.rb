@@ -3,14 +3,30 @@ require 'rails_helper'
 RSpec.describe User do
   subject(:user) { build(:user) }
 
+  describe 'Devise modules' do
+    it 'includes database_authenticatable' do
+      expect(described_class.devise_modules).to include(:database_authenticatable)
+    end
+
+    it 'includes registerable' do
+      expect(described_class.devise_modules).to include(:registerable)
+    end
+
+    it 'includes validatable' do
+      expect(described_class.devise_modules).to include(:validatable)
+    end
+
+    it 'includes jwt_authenticatable' do
+      expect(described_class.devise_modules).to include(:jwt_authenticatable)
+    end
+  end
+
   describe 'validations' do
     it { is_expected.to validate_presence_of(:email) }
     it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
     it { is_expected.to allow_value('user@example.com').for(:email) }
     it { is_expected.not_to allow_value('invalido').for(:email) }
     it { is_expected.to validate_presence_of(:role) }
-    it { is_expected.to validate_presence_of(:jti) }
-    it { is_expected.to validate_uniqueness_of(:jti) }
   end
 
   describe 'associations' do
@@ -27,8 +43,21 @@ RSpec.describe User do
 
   describe 'normalizations' do
     it 'strips and downcases email' do
-      user = described_class.new(email: '  USER@EXAMPLE.COM  ')
+      user = described_class.new(email: '  USER@EXAMPLE.COM  ', password: 'password123')
       expect(user.email).to eq('user@example.com')
+    end
+  end
+
+  describe 'JTI' do
+    it 'generates jti automatically on create' do
+      user = create(:user)
+      expect(user.jti).to be_present
+    end
+
+    it 'generates unique jti for each user' do
+      user1 = create(:user)
+      user2 = create(:user)
+      expect(user1.jti).not_to eq(user2.jti)
     end
   end
 
