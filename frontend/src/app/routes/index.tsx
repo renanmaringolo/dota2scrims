@@ -3,6 +3,8 @@ import { createBrowserRouter, type RouteObject } from 'react-router-dom'
 import PublicLayout from '@/app/layouts/PublicLayout'
 import AuthLayout from '@/app/layouts/AuthLayout'
 import AdminLayout from '@/app/layouts/AdminLayout'
+import PrivateRoute from '@/components/auth/PrivateRoute'
+import AdminRoute from '@/components/auth/AdminRoute'
 
 const PublicCalendar = lazy(() => import('@/app/pages/public/PublicCalendar'))
 const TeamProfile = lazy(() => import('@/app/pages/public/TeamProfile'))
@@ -76,60 +78,70 @@ const routes: RouteObject[] = [
     ],
   },
   {
-    element: <PublicLayout />,
+    element: <PrivateRoute />,
     children: [
       {
-        path: '/dashboard',
-        element: (
-          <SuspenseWrapper>
-            <ManagerDashboard />
-          </SuspenseWrapper>
-        ),
-      },
-      {
-        path: '/teams/new',
-        element: (
-          <SuspenseWrapper>
-            <TeamNew />
-          </SuspenseWrapper>
-        ),
-      },
-      {
-        path: '/teams/:id/edit',
-        element: (
-          <SuspenseWrapper>
-            <TeamEdit />
-          </SuspenseWrapper>
-        ),
+        element: <PublicLayout />,
+        children: [
+          {
+            path: '/dashboard',
+            element: (
+              <SuspenseWrapper>
+                <ManagerDashboard />
+              </SuspenseWrapper>
+            ),
+          },
+          {
+            path: '/teams/new',
+            element: (
+              <SuspenseWrapper>
+                <TeamNew />
+              </SuspenseWrapper>
+            ),
+          },
+          {
+            path: '/teams/:id/edit',
+            element: (
+              <SuspenseWrapper>
+                <TeamEdit />
+              </SuspenseWrapper>
+            ),
+          },
+        ],
       },
     ],
   },
   {
-    element: <AdminLayout />,
+    element: <AdminRoute />,
     children: [
       {
-        path: '/admin',
-        element: (
-          <SuspenseWrapper>
-            <AdminDashboard />
-          </SuspenseWrapper>
-        ),
-      },
-      {
-        path: '/admin/slots',
-        element: (
-          <SuspenseWrapper>
-            <AdminSlots />
-          </SuspenseWrapper>
-        ),
-      },
-      {
-        path: '/admin/scrims',
-        element: (
-          <SuspenseWrapper>
-            <AdminScrims />
-          </SuspenseWrapper>
-        ),
+        element: <AdminLayout />,
+        children: [
+          {
+            path: '/admin',
+            element: (
+              <SuspenseWrapper>
+                <AdminDashboard />
+              </SuspenseWrapper>
+            ),
+          },
+          {
+            path: '/admin/slots',
+            element: (
+              <SuspenseWrapper>
+                <AdminSlots />
+              </SuspenseWrapper>
+            ),
+          },
+          {
+            path: '/admin/scrims',
+            element: (
+              <SuspenseWrapper>
+                <AdminScrims />
+              </SuspenseWrapper>
+            ),
+          },
+        ],
       },
     ],
   },
