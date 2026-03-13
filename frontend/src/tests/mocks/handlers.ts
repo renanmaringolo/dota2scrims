@@ -4,9 +4,9 @@ const API_BASE = '/api'
 
 export const handlers = [
   http.post(`${API_BASE}/auth/login`, async ({ request }) => {
-    const body = (await request.json()) as { email?: string; password?: string }
+    const body = (await request.json()) as { user?: { email?: string; password?: string } }
 
-    if (body.email === 'admin@avalanche.gg' && body.password === 'password') {
+    if (body.user?.email === 'admin@avalanche.gg' && body.user?.password === 'password') {
       return HttpResponse.json({
         data: {
           id: 1,
@@ -16,6 +16,7 @@ export const handlers = [
           created_at: '2026-01-01T00:00:00Z',
           updated_at: '2026-01-01T00:00:00Z',
         },
+        meta: { token: 'fake-jwt-token' },
       })
     }
 
@@ -43,12 +44,13 @@ export const handlers = [
           created_at: '2026-01-01T00:00:00Z',
           updated_at: '2026-01-01T00:00:00Z',
         },
+        meta: { token: 'fake-register-token' },
       },
       { status: 201 },
     )
   }),
 
   http.delete(`${API_BASE}/auth/logout`, () => {
-    return HttpResponse.json({ data: { message: 'Logged out' } })
+    return new HttpResponse(null, { status: 204 })
   }),
 ]

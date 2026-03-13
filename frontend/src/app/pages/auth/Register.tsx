@@ -1,8 +1,10 @@
+import RegisterForm from '@/components/auth/RegisterForm'
+
 export default function Register() {
   return (
-    <div className="space-y-4">
-      <h2 className="text-2xl font-bold text-text-primary">Register</h2>
-      <p className="text-text-secondary">Create an account to schedule scrims.</p>
+    <div>
+      <h1 className="mb-6 text-center text-2xl font-bold text-text-primary">Criar Conta</h1>
+      <RegisterForm />
     </div>
   )
 }
