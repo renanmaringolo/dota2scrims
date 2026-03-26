@@ -76,3 +76,22 @@ export interface Scrim {
   cancelled_at?: string
   created_at: string
 }
+
+export interface ScrimDetailPlayer {
+  id: number
+  nickname: string
+  role: PlayerRole
+  mmr: number
+}
+
+export interface ScrimDetailTeam extends ScrimTeam {
+  manager_name?: string
+  manager_email?: string
+  players?: ScrimDetailPlayer[]
+}
+
+export interface ScrimDetail extends Omit<Scrim, 'team'> {
+  team: ScrimDetailTeam
+  notes?: string
+  updated_at?: string
+}
