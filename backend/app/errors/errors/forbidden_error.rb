@@ -1,7 +1,7 @@
 module Errors
   class ForbiddenError < BaseError
-    def initialize(message = 'Acesso negado')
-      super(message, status: :forbidden, code: 'forbidden')
+    def initialize(message = 'Acesso negado', code: 'forbidden')
+      super(message, status: :forbidden, code: code)
     end
   end
 end
