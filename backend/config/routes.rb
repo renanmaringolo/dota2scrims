@@ -10,5 +10,9 @@ Rails.application.routes.draw do
       delete 'logout', to: 'sessions#destroy'
       post 'refresh',  to: 'tokens#refresh'
     end
+
+    resources :teams, only: %i[index show create update destroy] do
+      resources :players, only: %i[index create update destroy]
+    end
   end
 end
