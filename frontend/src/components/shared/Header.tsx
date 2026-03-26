@@ -3,6 +3,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { useAuth } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { LogOut, Shield, Swords } from 'lucide-react'
 
 interface HeaderProps {
   variant: 'public' | 'auth' | 'admin'
@@ -14,24 +15,55 @@ export default function Header({ variant }: HeaderProps) {
   const { logout } = useAuth()
 
   return (
-    <header className="border-b border-border bg-bg-secondary px-6 py-4">
-      <div className="flex items-center justify-between">
+    <header className="gradient-border bg-bg-secondary/80 backdrop-blur-md px-6 py-3">
+      <div className="mx-auto flex max-w-7xl items-center justify-between">
         <div className="flex items-center gap-3">
-          <Link to="/" className="text-xl font-bold text-primary-400">Dota2Scrims</Link>
-          {variant === 'admin' && <Badge variant="secondary">Admin</Badge>}
+          <Link to="/" className="group flex items-center gap-2.5">
+            <div className="flex size-8 items-center justify-center rounded-lg bg-primary-400/10 transition-colors group-hover:bg-primary-400/20">
+              <Swords className="size-4 text-primary-400" />
+            </div>
+            <span className="text-lg font-bold tracking-tight text-gradient-teal">
+              Dota2Scrims
+            </span>
+          </Link>
+          {variant === 'admin' && (
+            <Badge className="border-primary-400/30 bg-primary-400/10 text-primary-400 gap-1">
+              <Shield className="size-3" />
+              Admin
+            </Badge>
+          )}
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           {isAuthenticated ? (
             <>
-              <span className="text-sm text-text-muted">{user?.email}</span>
-              <Button variant="ghost" size="sm" onClick={logout}>Sair</Button>
+              <span className="text-sm text-text-secondary">{user?.email}</span>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={logout}
+                className="gap-1.5 text-text-muted hover:text-danger-400"
+              >
+                <LogOut className="size-3.5" />
+                Sair
+              </Button>
             </>
           ) : (
             variant === 'public' && (
               <>
-                <Link to="/login"><Button variant="ghost" size="sm">Login</Button></Link>
-                <Link to="/register"><Button variant="default" size="sm">Registre-se</Button></Link>
+                <Link to="/login">
+                  <Button variant="ghost" size="sm" className="text-text-secondary hover:text-primary-400">
+                    Login
+                  </Button>
+                </Link>
+                <Link to="/register">
+                  <Button
+                    size="sm"
+                    className="bg-primary-400/15 text-primary-400 hover:bg-primary-400/25 border border-primary-400/30"
+                  >
+                    Registre-se
+                  </Button>
+                </Link>
               </>
             )
           )}

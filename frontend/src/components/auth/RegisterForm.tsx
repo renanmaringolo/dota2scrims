@@ -93,15 +93,15 @@ export default function RegisterForm() {
 
         <Button
           type="submit"
-          className="w-full"
+          className="w-full bg-primary-400 text-bg-primary font-semibold hover:bg-primary-300 transition-all hover:shadow-[0_0_20px_rgba(102,252,241,0.3)]"
           disabled={registerMutation.isPending}
         >
           {registerMutation.isPending ? 'Criando...' : 'Criar Conta'}
         </Button>
 
-        <p className="text-center text-sm text-muted-foreground">
+        <p className="text-center text-sm text-text-muted">
           Ja tem conta?{' '}
-          <Link to="/login" className="text-primary hover:underline">
+          <Link to="/login" className="text-primary-400 hover:text-primary-300 transition-colors">
             Faca login
           </Link>
         </p>
