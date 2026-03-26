@@ -1,0 +1,30 @@
+<h2>Nova Scrim Agendada</h2>
+
+<p>Uma nova scrim foi agendada no sistema.</p>
+
+<table>
+  <tr>
+    <td><strong>Data/Hora:</strong></td>
+    <td><%= @formatted_time %></td>
+  </tr>
+  <tr>
+    <td><strong>Time Adversario:</strong></td>
+    <td><%= @team.name %></td>
+  </tr>
+  <tr>
+    <td><strong>Manager:</strong></td>
+    <td><%= @team.manager_name %> (<%= @team.manager_email %>)</td>
+  </tr>
+  <tr>
+    <td><strong>Servidor:</strong></td>
+    <td><%= @scrim.server_host.upcase %></td>
+  </tr>
+  <tr>
+    <td><strong>Lobby:</strong></td>
+    <td><%= @scrim.lobby_name %></td>
+  </tr>
+  <tr>
+    <td><strong>Senha:</strong></td>
+    <td><%= @scrim.lobby_password %></td>
+  </tr>
+</table>

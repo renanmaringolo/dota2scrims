@@ -8,6 +8,11 @@ RSpec.describe Scrims::CancelOperation do
     let(:scrim) { create(:scrim, :with_lobby_info, challenger_team: team, time_slot: time_slot) }
 
     context 'when valid cancellation' do
+      before do
+        allow(ScrimBroadcastService).to receive(:slot_cancelled)
+        allow(ScrimNotificationService).to receive(:scrim_cancelled)
+      end
+
       it 'cancels the scrim' do
         result = described_class.call(
           params: { id: scrim.id, reason: 'Lero Lero cancelou a partida' },
@@ -29,16 +34,29 @@ RSpec.describe Scrims::CancelOperation do
       end
 
       it 'broadcasts slot_cancelled event' do
-        expect(ScrimBroadcastService).to receive(:slot_cancelled).with(time_slot)
-
         described_class.call(
           params: { id: scrim.id, reason: 'Lero Lero cancelou' },
           current_user: manager,
         )
+
+        expect(ScrimBroadcastService).to have_received(:slot_cancelled).with(time_slot)
+      end
+
+      it 'sends scrim cancelled notifications' do
+        described_class.call(
+          params: { id: scrim.id, reason: 'Lero Lero cancelou' },
+          current_user: manager,
+        )
+
+        expect(ScrimNotificationService).to have_received(:scrim_cancelled).with(scrim)
       end
     end
 
     context 'when reason is absent' do
+      before do
+        allow(ScrimBroadcastService).to receive(:slot_cancelled)
+      end
+
       it 'raises ValidationError' do
         expect do
           described_class.call(
@@ -49,14 +67,14 @@ RSpec.describe Scrims::CancelOperation do
       end
 
       it 'does not broadcast' do
-        expect(ScrimBroadcastService).not_to receive(:slot_cancelled)
-
         expect do
           described_class.call(
             params: { id: scrim.id, reason: '' },
             current_user: manager,
           )
         end.to raise_error(Errors::ValidationError)
+
+        expect(ScrimBroadcastService).not_to have_received(:slot_cancelled)
       end
     end
 
