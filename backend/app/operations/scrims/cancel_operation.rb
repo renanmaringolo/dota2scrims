@@ -10,6 +10,8 @@ module Scrims
         release_slot!
         @scrim
       end
+      ScrimBroadcastService.slot_cancelled(@scrim.time_slot)
+      @scrim
     end
 
     private
