@@ -15,7 +15,6 @@ class TimeSlot < ApplicationRecord
   scope :upcoming, -> { where(starts_at: Time.current..).order(:starts_at) }
   scope :on_date, ->(date) { where(starts_at: date.all_day) }
   scope :between_dates, ->(from, to) { where(starts_at: from.beginning_of_day..to.end_of_day) }
-  scope :available, -> { where(status: :available) }
 
   private
 
