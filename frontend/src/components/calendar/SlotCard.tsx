@@ -26,7 +26,7 @@ const SlotCard = memo(function SlotCard({ slot, onClick }: SlotCardProps) {
   return (
     <Comp
       className={cn(
-        'group flex flex-col gap-2 rounded-xl border p-3 text-left transition-all duration-200',
+        'group flex flex-col gap-2 rounded-xl border p-3 text-left transition-all duration-500 ease-in-out',
         statusStyles[slot.status],
         onClick && 'cursor-pointer hover:shadow-[0_0_15px_rgba(102,252,241,0.1)]',
       )}
