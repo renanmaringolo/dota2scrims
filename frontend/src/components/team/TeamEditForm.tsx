@@ -19,10 +19,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Badge } from '@/components/ui/badge'
 import { teamSchema, type TeamFormData } from '@/lib/validators'
-import { TIMEZONES, PLAYER_ROLE_MAP } from '@/lib/constants'
+import { TIMEZONES } from '@/lib/constants'
 import { useTeams } from '@/hooks/useTeams'
+import PlayerList from './PlayerList'
 import type { Team } from '@/types/models'
 import type { ApiError } from '@/types/api'
 import type { AxiosError } from 'axios'
@@ -133,27 +133,7 @@ export default function TeamEditForm({ team }: TeamEditFormProps) {
           />
         </div>
 
-        {team.players.length > 0 && (
-          <div className="space-y-3">
-            <h3 className="text-sm font-medium text-text-primary">Roster</h3>
-            <div className="space-y-2">
-              {team.players.map((player) => (
-                <div
-                  key={player.id}
-                  className="flex items-center justify-between rounded-lg border border-border p-3"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="font-medium">{player.nickname}</span>
-                    <Badge variant="secondary">
-                      {PLAYER_ROLE_MAP[player.role] ?? player.role}
-                    </Badge>
-                    <span className="text-sm text-text-secondary">{player.mmr} MMR</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        <PlayerList teamId={team.id} players={team.players} />
 
         <Button type="submit" disabled={updateTeamMutation.isPending}>
           {updateTeamMutation.isPending ? 'Salvando...' : 'Salvar'}

@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import type { User } from '@/types/models'
+import { queryClient } from '@/lib/queryClient'
 
 interface AuthState {
   user: User | null
@@ -28,13 +29,15 @@ export const useAuthStore = create<AuthState>()(
           isAdmin: user.role === 'admin',
         }),
 
-      logout: () =>
+      logout: () => {
+        queryClient.clear()
         set({
           user: null,
           token: null,
           isAuthenticated: false,
           isAdmin: false,
-        }),
+        })
+      },
 
       setUser: (user) =>
         set({

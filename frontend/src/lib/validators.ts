@@ -40,7 +40,7 @@ export type BookingFormData = z.infer<typeof bookingSchema>
 export const playerSchema = z.object({
   nickname: z.string().min(1, 'Nickname e obrigatorio'),
   role: z.string().min(1, 'Posicao e obrigatoria'),
-  mmr: z.coerce.number().int().positive('MMR deve ser positivo'),
+  mmr: z.coerce.number().int().nonnegative('MMR deve ser positivo').default(0),
 })
 
 export type PlayerFormData = z.infer<typeof playerSchema>

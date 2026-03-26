@@ -66,11 +66,11 @@ describe('TeamEditForm', () => {
     expect(screen.getByText('Mid')).toBeInTheDocument()
   })
 
-  it('does not render roster when no players', () => {
+  it('shows empty roster message when no players', () => {
     const teamWithoutPlayers = { ...mockTeam, players: [] }
     renderWithProviders(<TeamEditForm team={teamWithoutPlayers} />)
 
-    expect(screen.queryByText('Roster')).not.toBeInTheDocument()
+    expect(screen.getByText(/nenhum jogador no roster/i)).toBeInTheDocument()
   })
 
   it('shows save button', () => {

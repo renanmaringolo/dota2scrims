@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { SERVERS } from '@/lib/constants'
+import { SERVERS, SERVER_LABEL_MAP } from '@/lib/constants'
 
 export default function LobbyFields() {
   const { control } = useFormContext()
@@ -64,7 +64,7 @@ export default function LobbyFields() {
               <SelectContent>
                 {SERVERS.map((server) => (
                   <SelectItem key={server} value={server}>
-                    {server}
+                    {SERVER_LABEL_MAP[server] ?? server}
                   </SelectItem>
                 ))}
               </SelectContent>
