@@ -1,4 +1,10 @@
-export const SERVERS = ['BR', 'ARG', 'WEU'] as const
+export const SERVERS = ['br', 'arg', 'weu'] as const
+
+export const SERVER_LABEL_MAP: Record<string, string> = {
+  br: 'BR',
+  arg: 'ARG',
+  weu: 'WEU',
+}
 
 export const TIMEZONES = [
   'America/Sao_Paulo',

@@ -51,13 +51,28 @@ export interface TimeSlot {
   }
 }
 
+export interface ScrimTeam {
+  id: number
+  name: string
+  mmr?: number
+}
+
+export interface ScrimTimeSlot {
+  id: number
+  starts_at: string
+  ends_at: string
+  status?: string
+}
+
 export interface Scrim {
   id: number
-  time_slot_id: number
-  challenger_team_id: number
   status: ScrimStatus
-  result: string | null
-  notes: string | null
+  time_slot: ScrimTimeSlot
+  team: ScrimTeam
+  lobby_name?: string
+  lobby_password?: string
+  server_host?: string
+  cancellation_reason?: string
+  cancelled_at?: string
   created_at: string
-  updated_at: string
 }

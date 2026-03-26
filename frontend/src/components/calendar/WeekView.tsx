@@ -6,9 +6,10 @@ import SlotCard from './SlotCard'
 interface WeekViewProps {
   slots: TimeSlot[]
   selectedDate: Date
+  onSlotSelect?: (slot: TimeSlot) => void
 }
 
-export default function WeekView({ slots, selectedDate }: WeekViewProps) {
+export default function WeekView({ slots, selectedDate, onSlotSelect }: WeekViewProps) {
   const weekStart = startOfWeek(selectedDate, { weekStartsOn: 1 })
   const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i))
 
@@ -29,7 +30,11 @@ export default function WeekView({ slots, selectedDate }: WeekViewProps) {
             </div>
             <div className="flex flex-col gap-2">
               {daySlots.map((slot) => (
-                <SlotCard key={slot.id} slot={slot} />
+                <SlotCard
+                  key={slot.id}
+                  slot={slot}
+                  onClick={slot.status === 'available' ? () => onSlotSelect?.(slot) : undefined}
+                />
               ))}
             </div>
           </div>

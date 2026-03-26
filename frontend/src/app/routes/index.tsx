@@ -4,6 +4,7 @@ import PublicLayout from '@/app/layouts/PublicLayout'
 import AuthLayout from '@/app/layouts/AuthLayout'
 import AdminLayout from '@/app/layouts/AdminLayout'
 import PrivateRoute from '@/components/auth/PrivateRoute'
+import ManagerRoute from '@/components/auth/ManagerRoute'
 import AdminRoute from '@/components/auth/AdminRoute'
 
 const PublicCalendar = lazy(() => import('@/app/pages/public/PublicCalendar'))
@@ -78,7 +79,7 @@ const routes: RouteObject[] = [
     ],
   },
   {
-    element: <PrivateRoute />,
+    element: <ManagerRoute />,
     children: [
       {
         element: <PublicLayout />,
