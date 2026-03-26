@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
 import { useAuthStore } from '@/stores/authStore'
 import { useAuth } from '@/hooks/useAuth'
+import { useCalendarChannel } from '@/hooks/useCalendarChannel'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { LogOut, Shield, Swords } from 'lucide-react'
+import { LogOut, Shield, Swords, WifiOff } from 'lucide-react'
 
 interface HeaderProps {
   variant: 'public' | 'auth' | 'admin'
@@ -13,6 +14,7 @@ export default function Header({ variant }: HeaderProps) {
   const user = useAuthStore((s) => s.user)
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
   const { logout } = useAuth()
+  const { connected } = useCalendarChannel()
 
   return (
     <header className="gradient-border bg-bg-secondary/80 backdrop-blur-md px-6 py-3">
@@ -35,6 +37,12 @@ export default function Header({ variant }: HeaderProps) {
         </div>
 
         <div className="flex items-center gap-3">
+          {isAuthenticated && !connected && (
+            <span className="flex items-center gap-1.5 text-xs text-warning-400 animate-pulse">
+              <WifiOff className="size-3" />
+              Reconectando...
+            </span>
+          )}
           {isAuthenticated ? (
             <>
               <span className="text-sm text-text-secondary">{user?.email}</span>
