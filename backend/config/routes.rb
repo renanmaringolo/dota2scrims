@@ -13,7 +13,15 @@ Rails.application.routes.draw do
 
     resources :teams, only: %i[index show create update destroy] do
       resources :players, only: %i[index create update destroy]
+    end
+
     resources :time_slots, only: %i[index show]
+
+    resources :scrims, only: %i[index show create] do
+      member do
+        post :cancel
+      end
+    end
 
     namespace :admin do
       resources :time_slots, only: %i[create update destroy] do
@@ -21,6 +29,8 @@ Rails.application.routes.draw do
           post :bulk_create
         end
       end
+
+      resources :scrims, only: %i[index show update]
     end
   end
 end

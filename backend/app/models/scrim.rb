@@ -15,4 +15,6 @@ class Scrim < ApplicationRecord
   }
 
   validates :time_slot_id, uniqueness: true
+  validates :lobby_name, :lobby_password, :server_host, presence: true
+  validates :cancellation_reason, presence: true, if: :cancelled?
 end

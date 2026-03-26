@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_10_023300) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_26_021703) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -35,6 +35,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_023300) do
 
   create_table "scrims", force: :cascade do |t|
     t.text "cancellation_reason"
+    t.timestamptz "cancelled_at"
     t.bigint "challenger_team_id", null: false
     t.datetime "created_at", null: false
     t.string "lobby_name"
