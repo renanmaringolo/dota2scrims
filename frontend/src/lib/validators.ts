@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { SERVERS } from '@/lib/constants'
 
 export const loginSchema = z.object({
   email: z.email('Email invalido'),
@@ -26,6 +27,15 @@ export const teamSchema = z.object({
 })
 
 export type TeamFormData = z.infer<typeof teamSchema>
+
+export const bookingSchema = z.object({
+  team_id: z.coerce.number().positive('Selecione um time'),
+  lobby_name: z.string().min(1, 'Nome do lobby e obrigatorio'),
+  lobby_password: z.string().min(1, 'Senha do lobby e obrigatoria'),
+  server_host: z.enum(SERVERS, { errorMap: () => ({ message: 'Servidor e obrigatorio' }) }),
+})
+
+export type BookingFormData = z.infer<typeof bookingSchema>
 
 export const playerSchema = z.object({
   nickname: z.string().min(1, 'Nickname e obrigatorio'),

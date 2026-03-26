@@ -1,20 +1,31 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { format, startOfWeek, endOfWeek } from 'date-fns'
 import { useCalendarStore } from '@/stores/calendarStore'
 import { useTimeSlots } from '@/hooks/useTimeSlots'
+import { useAuthStore } from '@/stores/authStore'
+import type { TimeSlot } from '@/types'
 import CalendarHeader from './CalendarHeader'
 import WeekView from './WeekView'
 import DayView from './DayView'
 import SkeletonCalendar from './SkeletonCalendar'
 import EmptyState from '@/components/shared/EmptyState'
+import BookingModal from '@/components/booking/BookingModal'
 import useIsMobile from '@/hooks/useIsMobile'
 
 export default function ScrimCalendar() {
   const { selectedDate, viewMode, setViewMode, nextWeek, prevWeek, today } =
     useCalendarStore()
+  const { isAuthenticated } = useAuthStore()
+  const [selectedSlot, setSelectedSlot] = useState<TimeSlot | null>(null)
 
   const isMobile = useIsMobile()
   const effectiveViewMode = isMobile ? 'day' : viewMode
+
+  const handleSlotSelect = (slot: TimeSlot) => {
+    if (slot.status === 'available' && isAuthenticated) {
+      setSelectedSlot(slot)
+    }
+  }
 
   const { dateFrom, dateTo } = useMemo(() => {
     const weekStart = startOfWeek(selectedDate, { weekStartsOn: 1 })
@@ -57,11 +68,17 @@ export default function ScrimCalendar() {
 
       {!isLoading && !isError && slots && slots.length > 0 && (
         effectiveViewMode === 'week' ? (
-          <WeekView slots={slots} selectedDate={selectedDate} />
+          <WeekView slots={slots} selectedDate={selectedDate} onSlotSelect={handleSlotSelect} />
         ) : (
-          <DayView slots={slots} selectedDate={selectedDate} />
+          <DayView slots={slots} selectedDate={selectedDate} onSlotSelect={handleSlotSelect} />
         )
       )}
+
+      <BookingModal
+        slot={selectedSlot}
+        open={!!selectedSlot}
+        onOpenChange={(open) => !open && setSelectedSlot(null)}
+      />
     </div>
   )
 }

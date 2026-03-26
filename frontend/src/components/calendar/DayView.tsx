@@ -6,9 +6,10 @@ import EmptyState from '@/components/shared/EmptyState'
 interface DayViewProps {
   slots: TimeSlot[]
   selectedDate: Date
+  onSlotSelect?: (slot: TimeSlot) => void
 }
 
-export default function DayView({ slots, selectedDate }: DayViewProps) {
+export default function DayView({ slots, selectedDate, onSlotSelect }: DayViewProps) {
   const daySlots = slots.filter((slot) => isSameDay(parseISO(slot.starts_at), selectedDate))
 
   if (daySlots.length === 0) {
@@ -18,7 +19,11 @@ export default function DayView({ slots, selectedDate }: DayViewProps) {
   return (
     <div className="flex flex-col gap-3">
       {daySlots.map((slot) => (
-        <SlotCard key={slot.id} slot={slot} />
+        <SlotCard
+          key={slot.id}
+          slot={slot}
+          onClick={slot.status === 'available' ? () => onSlotSelect?.(slot) : undefined}
+        />
       ))}
     </div>
   )
