@@ -1,0 +1,26 @@
+<h2>Lembrete de Scrim</h2>
+
+<p>Sua scrim comeca em 1 hora!</p>
+
+<table>
+  <tr>
+    <td><strong>Data/Hora:</strong></td>
+    <td><%= @formatted_time %></td>
+  </tr>
+  <tr>
+    <td><strong>Time:</strong></td>
+    <td><%= @team.name %></td>
+  </tr>
+  <tr>
+    <td><strong>Servidor:</strong></td>
+    <td><%= @scrim.server_host.upcase %></td>
+  </tr>
+  <tr>
+    <td><strong>Lobby:</strong></td>
+    <td><%= @scrim.lobby_name %></td>
+  </tr>
+  <tr>
+    <td><strong>Senha:</strong></td>
+    <td><%= @scrim.lobby_password %></td>
+  </tr>
+</table>

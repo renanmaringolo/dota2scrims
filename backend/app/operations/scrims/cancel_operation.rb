@@ -11,6 +11,7 @@ module Scrims
         @scrim
       end
       ScrimBroadcastService.slot_cancelled(@scrim.time_slot)
+      ScrimNotificationService.scrim_cancelled(@scrim)
       @scrim
     end
 

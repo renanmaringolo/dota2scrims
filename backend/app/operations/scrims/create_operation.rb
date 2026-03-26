@@ -12,6 +12,8 @@ module Scrims
         @scrim
       end
       ScrimBroadcastService.slot_booked(@time_slot)
+      ScrimNotificationService.scrim_scheduled(@scrim)
+      schedule_reminder(@scrim)
       @scrim
     end
 
@@ -44,6 +46,13 @@ module Scrims
 
     def update_slot_status!
       @time_slot.booked!
+    end
+
+    def schedule_reminder(scrim)
+      reminder_time = scrim.time_slot.starts_at - 1.hour
+      return if reminder_time <= Time.current
+
+      ScrimReminderJob.set(wait_until: reminder_time).perform_later(scrim.id)
     end
   end
 end

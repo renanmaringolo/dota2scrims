@@ -17,6 +17,13 @@ RSpec.describe Scrims::CreateOperation do
     end
 
     context 'when all validations pass' do
+      before do
+        allow(ScrimBroadcastService).to receive(:slot_booked)
+        allow(ScrimNotificationService).to receive(:scrim_scheduled)
+        allow(ScrimReminderJob).to receive(:set).and_return(ScrimReminderJob)
+        allow(ScrimReminderJob).to receive(:perform_later)
+      end
+
       it 'creates a scrim' do
         expect do
           described_class.call(params: valid_params, current_user: manager)
@@ -39,14 +46,31 @@ RSpec.describe Scrims::CreateOperation do
       end
 
       it 'broadcasts slot_booked event' do
-        expect(ScrimBroadcastService).to receive(:slot_booked).with(time_slot)
-
         described_class.call(params: valid_params, current_user: manager)
+
+        expect(ScrimBroadcastService).to have_received(:slot_booked).with(time_slot)
+      end
+
+      it 'sends scrim scheduled notifications' do
+        described_class.call(params: valid_params, current_user: manager)
+
+        expect(ScrimNotificationService).to have_received(:scrim_scheduled).with(an_instance_of(Scrim))
+      end
+
+      it 'schedules a reminder job' do
+        described_class.call(params: valid_params, current_user: manager)
+
+        expect(ScrimReminderJob).to have_received(:set)
+        expect(ScrimReminderJob).to have_received(:perform_later)
       end
     end
 
     context 'when team does not belong to current user' do
       let(:other_user) { create(:user, :manager) }
+
+      before do
+        allow(ScrimBroadcastService).to receive(:slot_booked)
+      end
 
       it 'raises ForbiddenError' do
         expect do
@@ -55,11 +79,11 @@ RSpec.describe Scrims::CreateOperation do
       end
 
       it 'does not broadcast' do
-        expect(ScrimBroadcastService).not_to receive(:slot_booked)
-
         expect do
           described_class.call(params: valid_params, current_user: other_user)
         end.to raise_error(Teams::ForbiddenError)
+
+        expect(ScrimBroadcastService).not_to have_received(:slot_booked)
       end
     end
 
