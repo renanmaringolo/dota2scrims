@@ -1,4 +1,4 @@
-import type { UserRole, PlayerRole, SlotStatus, ScrimStatus, Server } from './enums'
+import type { UserRole, PlayerRole, SlotStatus, ScrimStatus } from './enums'
 
 export interface User {
   id: number
@@ -9,15 +9,23 @@ export interface User {
   updated_at: string
 }
 
+export interface TeamListItem {
+  id: number
+  name: string
+  mmr: number
+  players_count: number
+  created_at: string
+}
+
 export interface Team {
   id: number
   name: string
-  tag: string
-  logo_url: string | null
-  manager_id: number
-  average_mmr: number | null
+  manager_name: string
+  manager_email: string
+  timezone: string
+  mmr: number
+  players: Player[]
   created_at: string
-  updated_at: string
 }
 
 export interface Player {
@@ -25,10 +33,8 @@ export interface Player {
   nickname: string
   role: PlayerRole
   mmr: number
-  steam_id: string | null
   team_id: number
   created_at: string
-  updated_at: string
 }
 
 export interface TimeSlot {
@@ -36,11 +42,13 @@ export interface TimeSlot {
   starts_at: string
   ends_at: string
   status: SlotStatus
-  server: Server
-  notes: string | null
-  created_by_id: number
-  created_at: string
-  updated_at: string
+  scrim?: {
+    id: number
+    team: {
+      id: number
+      name: string
+    }
+  }
 }
 
 export interface Scrim {
