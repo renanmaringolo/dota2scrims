@@ -10,6 +10,19 @@ RSpec.describe Scrim do
 
   describe 'validations' do
     it { is_expected.to validate_uniqueness_of(:time_slot_id) }
+    it { is_expected.to validate_presence_of(:lobby_name) }
+    it { is_expected.to validate_presence_of(:lobby_password) }
+    it { is_expected.to validate_presence_of(:server_host) }
+
+    context 'when cancelled' do
+      subject { build(:scrim, :cancelled, :with_lobby_info) }
+
+      it { is_expected.to validate_presence_of(:cancellation_reason) }
+    end
+
+    context 'when scheduled' do
+      it { is_expected.not_to validate_presence_of(:cancellation_reason) }
+    end
   end
 
   describe 'enums' do
