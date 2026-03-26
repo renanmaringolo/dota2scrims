@@ -81,15 +81,15 @@ export default function LoginForm() {
 
         <Button
           type="submit"
-          className="w-full"
+          className="w-full bg-primary-400 text-bg-primary font-semibold hover:bg-primary-300 transition-all hover:shadow-[0_0_20px_rgba(102,252,241,0.3)]"
           disabled={loginMutation.isPending}
         >
           {loginMutation.isPending ? 'Entrando...' : 'Entrar'}
         </Button>
 
-        <p className="text-center text-sm text-muted-foreground">
+        <p className="text-center text-sm text-text-muted">
           Nao tem conta?{' '}
-          <Link to="/register" className="text-primary hover:underline">
+          <Link to="/register" className="text-primary-400 hover:text-primary-300 transition-colors">
             Registre-se
           </Link>
         </p>

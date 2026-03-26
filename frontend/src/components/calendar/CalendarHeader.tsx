@@ -1,6 +1,6 @@
 import { format, startOfWeek, endOfWeek } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Calendar } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 type ViewMode = 'week' | 'day'
@@ -33,30 +33,53 @@ export default function CalendarHeader({
       : format(selectedDate, "EEEE, d MMM yyyy", { locale: ptBR })
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3">
-      <div className="flex items-center gap-2">
-        <Button variant="outline" size="icon" onClick={onPrev} aria-label="Semana anterior">
-          <ChevronLeft className="size-4" />
-        </Button>
-        <Button variant="outline" size="icon" onClick={onNext} aria-label="Próxima semana">
-          <ChevronRight className="size-4" />
-        </Button>
-        <Button variant="ghost" size="sm" onClick={onToday}>
+    <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-border-bright bg-bg-secondary/50 p-4">
+      <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1">
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            onClick={onPrev}
+            aria-label="Semana anterior"
+            className="hover:bg-primary-400/10 hover:text-primary-400"
+          >
+            <ChevronLeft className="size-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            onClick={onNext}
+            aria-label="Proxima semana"
+            className="hover:bg-primary-400/10 hover:text-primary-400"
+          >
+            <ChevronRight className="size-4" />
+          </Button>
+        </div>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={onToday}
+          className="text-primary-400 hover:bg-primary-400/10"
+        >
           Hoje
         </Button>
-        <h2 className="text-lg font-semibold text-text-primary capitalize">
-          {dateLabel}
-        </h2>
+        <div className="flex items-center gap-2">
+          <Calendar className="size-4 text-primary-400" />
+          <h2 className="text-lg font-bold tracking-tight text-text-primary capitalize">
+            {dateLabel}
+          </h2>
+        </div>
       </div>
 
       {!hideViewToggle && (
-        <div className="flex gap-1 rounded-lg bg-bg-tertiary p-1">
+        <div className="flex gap-0.5 rounded-lg border border-border-bright bg-bg-primary p-0.5">
           <Button
             variant="ghost"
             size="sm"
             onClick={() => onViewModeChange('week')}
-            data-active={viewMode === 'week'}
-            className={viewMode === 'week' ? 'bg-bg-elevated' : ''}
+            className={viewMode === 'week'
+              ? 'bg-primary-400/15 text-primary-400 hover:bg-primary-400/20'
+              : 'text-text-muted hover:text-text-primary'}
           >
             Semana
           </Button>
@@ -64,8 +87,9 @@ export default function CalendarHeader({
             variant="ghost"
             size="sm"
             onClick={() => onViewModeChange('day')}
-            data-active={viewMode === 'day'}
-            className={viewMode === 'day' ? 'bg-bg-elevated' : ''}
+            className={viewMode === 'day'
+              ? 'bg-primary-400/15 text-primary-400 hover:bg-primary-400/20'
+              : 'text-text-muted hover:text-text-primary'}
           >
             Dia
           </Button>
