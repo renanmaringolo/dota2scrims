@@ -17,3 +17,20 @@ export const registerSchema = z.object({
 })
 
 export type RegisterFormData = z.infer<typeof registerSchema>
+
+export const teamSchema = z.object({
+  name: z.string().min(1, 'Nome e obrigatorio'),
+  manager_name: z.string().min(1, 'Nome do manager e obrigatorio'),
+  manager_email: z.string().email('Email invalido'),
+  timezone: z.string().min(1, 'Timezone e obrigatorio'),
+})
+
+export type TeamFormData = z.infer<typeof teamSchema>
+
+export const playerSchema = z.object({
+  nickname: z.string().min(1, 'Nickname e obrigatorio'),
+  role: z.string().min(1, 'Posicao e obrigatoria'),
+  mmr: z.coerce.number().int().positive('MMR deve ser positivo'),
+})
+
+export type PlayerFormData = z.infer<typeof playerSchema>
