@@ -87,7 +87,7 @@ services:
       backend:
         condition: service_healthy
     environment:
-      VITE_API_URL: http://localhost:3000
+      VITE_API_URL: http://localhost:3000/api
       VITE_WS_URL: ws://localhost:3000/cable
       VITE_APP_NAME: Dota2Scrims
     volumes:
