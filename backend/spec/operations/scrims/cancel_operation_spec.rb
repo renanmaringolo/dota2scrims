@@ -27,10 +27,30 @@ RSpec.describe Scrims::CancelOperation do
 
         expect(time_slot.reload.status).to eq('available')
       end
+
+      it 'broadcasts slot_cancelled event' do
+        expect(ScrimBroadcastService).to receive(:slot_cancelled).with(time_slot)
+
+        described_class.call(
+          params: { id: scrim.id, reason: 'Lero Lero cancelou' },
+          current_user: manager,
+        )
+      end
     end
 
     context 'when reason is absent' do
       it 'raises ValidationError' do
+        expect do
+          described_class.call(
+            params: { id: scrim.id, reason: '' },
+            current_user: manager,
+          )
+        end.to raise_error(Errors::ValidationError)
+      end
+
+      it 'does not broadcast' do
+        expect(ScrimBroadcastService).not_to receive(:slot_cancelled)
+
         expect do
           described_class.call(
             params: { id: scrim.id, reason: '' },

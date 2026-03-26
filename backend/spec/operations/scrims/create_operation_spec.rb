@@ -37,12 +37,26 @@ RSpec.describe Scrims::CreateOperation do
 
         expect(time_slot.reload.status).to eq('booked')
       end
+
+      it 'broadcasts slot_booked event' do
+        expect(ScrimBroadcastService).to receive(:slot_booked).with(time_slot)
+
+        described_class.call(params: valid_params, current_user: manager)
+      end
     end
 
     context 'when team does not belong to current user' do
       let(:other_user) { create(:user, :manager) }
 
       it 'raises ForbiddenError' do
+        expect do
+          described_class.call(params: valid_params, current_user: other_user)
+        end.to raise_error(Teams::ForbiddenError)
+      end
+
+      it 'does not broadcast' do
+        expect(ScrimBroadcastService).not_to receive(:slot_booked)
+
         expect do
           described_class.call(params: valid_params, current_user: other_user)
         end.to raise_error(Teams::ForbiddenError)

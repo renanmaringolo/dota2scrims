@@ -11,6 +11,8 @@ module Scrims
         update_slot_status!
         @scrim
       end
+      ScrimBroadcastService.slot_booked(@time_slot)
+      @scrim
     end
 
     private

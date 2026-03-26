@@ -26,6 +26,12 @@ RSpec.describe TimeSlots::CreateOperation do
           created_by: admin,
         )
       end
+
+      it 'broadcasts slot_created event' do
+        expect(ScrimBroadcastService).to receive(:slot_created).with(an_instance_of(TimeSlot))
+
+        create_slot
+      end
     end
 
     context 'when manager tries to create a slot' do
