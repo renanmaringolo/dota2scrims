@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       post 'refresh',  to: 'tokens#refresh'
     end
 
+    resources :teams, only: %i[index show create update destroy] do
+      resources :players, only: %i[index create update destroy]
     resources :time_slots, only: %i[index show]
 
     namespace :admin do
