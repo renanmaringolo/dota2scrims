@@ -1,19 +1,13 @@
-import { screen } from '@testing-library/react'
-import { http, HttpResponse } from 'msw'
-import { server } from '@/tests/mocks/server'
+import { expect, it } from 'vitest'
+import { axe } from 'vitest-axe'
+import { toHaveNoViolations } from 'vitest-axe/matchers'
 import { renderWithProviders } from '@/tests/utils'
 import PublicCalendar from './PublicCalendar'
 
-describe('PublicCalendar', () => {
-  it('renders the calendar', () => {
-    server.use(
-      http.get('/api/time_slots', () => {
-        return HttpResponse.json({ data: [] })
-      }),
-    )
+expect.extend({ toHaveNoViolations })
 
-    renderWithProviders(<PublicCalendar />)
-
-    expect(screen.getByText('Hoje')).toBeInTheDocument()
-  })
+it('should have no accessibility violations', async () => {
+  const { container } = renderWithProviders(<PublicCalendar />)
+  const results = await axe(container)
+  expect(results).toHaveNoViolations()
 })

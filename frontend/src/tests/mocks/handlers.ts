@@ -108,4 +108,60 @@ export const handlers = [
       },
     })
   }),
+
+  http.get(`${API_BASE}/time_slots`, () => {
+    return HttpResponse.json({
+      data: [
+        {
+          id: 10,
+          starts_at: '2026-03-27T20:00:00Z',
+          ends_at: '2026-03-27T22:00:00Z',
+          status: 'available',
+          created_by_id: 1,
+        },
+        {
+          id: 11,
+          starts_at: '2026-03-28T20:00:00Z',
+          ends_at: '2026-03-28T22:00:00Z',
+          status: 'booked',
+          created_by_id: 1,
+        },
+      ],
+      meta: { total: 2 },
+    })
+  }),
+
+  http.get(`${API_BASE}/admin/scrims`, () => {
+    return HttpResponse.json({
+      data: [
+        {
+          id: 1,
+          status: 'scheduled',
+          time_slot: { id: 10, starts_at: '2026-03-27T20:00:00Z', ends_at: '2026-03-27T22:00:00Z', status: 'booked' },
+          team: { id: 2, name: 'Rock n Sports', mmr: 4500 },
+          lobby_name: 'avalanche-vs-rns',
+          lobby_password: 'scrim123',
+          server_host: 'br',
+          created_at: '2026-03-26T10:00:00Z',
+        },
+      ],
+      meta: { total: 1 },
+    })
+  }),
+
+  http.get(`${API_BASE}/teams`, () => {
+    return HttpResponse.json({
+      data: [
+        {
+          id: 1,
+          name: 'Rock n Sports',
+          mmr: 4500,
+          manager_id: 2,
+          created_at: '2026-01-01T00:00:00Z',
+          updated_at: '2026-01-01T00:00:00Z',
+        },
+      ],
+      meta: { total: 1 },
+    })
+  }),
 ]

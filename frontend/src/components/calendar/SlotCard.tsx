@@ -25,13 +25,14 @@ const SlotCard = memo(function SlotCard({ slot, onClick }: SlotCardProps) {
 
   return (
     <Comp
+      data-slot-card
       className={cn(
-        'group flex flex-col gap-2 rounded-xl border p-3 text-left transition-all duration-500 ease-in-out',
+        'group flex flex-col gap-2 rounded-xl border p-3 text-left transition-all duration-500 ease-in-out min-h-11 focus-visible:ring-2 focus-visible:ring-primary-400/50 focus-visible:outline-none',
         statusStyles[slot.status],
         onClick && 'cursor-pointer hover:shadow-[0_0_15px_rgba(102,252,241,0.1)]',
       )}
       onClick={onClick}
-      {...(onClick && { 'aria-label': `${timeLabel} - ${slot.status}` })}
+      {...(onClick && { 'aria-label': `${timeLabel} - ${slot.status}`, tabIndex: 0 })}
     >
       <div className="flex items-center gap-1.5">
         <Clock className={cn(

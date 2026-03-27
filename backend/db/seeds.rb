@@ -1,16 +1,14 @@
-require 'bcrypt'
-
 Time.zone = 'America/Sao_Paulo'
 
 admin = User.find_or_create_by!(email: 'admin@avalanche.gg') do |user|
-  user.encrypted_password = BCrypt::Password.create('password123')
+  user.password = 'password123'
   user.role = :admin
   user.jti = SecureRandom.uuid
 end
 puts "User admin: #{admin.email} (#{admin.role})"
 
 manager = User.find_or_create_by!(email: 'manager@rocknsports.gg') do |user|
-  user.encrypted_password = BCrypt::Password.create('password123')
+  user.password = 'password123'
   user.role = :manager
   user.jti = SecureRandom.uuid
 end

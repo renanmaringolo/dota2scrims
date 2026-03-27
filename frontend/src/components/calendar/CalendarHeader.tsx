@@ -33,39 +33,40 @@ export default function CalendarHeader({
       : format(selectedDate, "EEEE, d MMM yyyy", { locale: ptBR })
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-border-bright bg-bg-secondary/50 p-4">
-      <div className="flex items-center gap-3">
+    <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 rounded-xl border border-border-bright bg-bg-secondary/50 p-3 sm:p-4">
+      <div className="flex items-center gap-2 sm:gap-3">
         <div className="flex items-center gap-1">
           <Button
             variant="ghost"
-            size="icon-sm"
+            size="icon"
             onClick={onPrev}
             aria-label="Semana anterior"
-            className="hover:bg-primary-400/10 hover:text-primary-400"
+            className="min-h-11 min-w-11 sm:min-h-8 sm:min-w-8 sm:size-8 hover:bg-primary-400/10 hover:text-primary-400"
           >
-            <ChevronLeft className="size-4" />
+            <ChevronLeft className="size-5 sm:size-4" />
           </Button>
           <Button
             variant="ghost"
-            size="icon-sm"
+            size="icon"
             onClick={onNext}
             aria-label="Proxima semana"
-            className="hover:bg-primary-400/10 hover:text-primary-400"
+            className="min-h-11 min-w-11 sm:min-h-8 sm:min-w-8 sm:size-8 hover:bg-primary-400/10 hover:text-primary-400"
           >
-            <ChevronRight className="size-4" />
+            <ChevronRight className="size-5 sm:size-4" />
           </Button>
         </div>
         <Button
           variant="ghost"
           size="sm"
           onClick={onToday}
-          className="text-primary-400 hover:bg-primary-400/10"
+          aria-label="Ir para hoje"
+          className="min-h-11 sm:min-h-8 text-primary-400 hover:bg-primary-400/10"
         >
           Hoje
         </Button>
         <div className="flex items-center gap-2">
-          <Calendar className="size-4 text-primary-400" />
-          <h2 className="text-lg font-bold tracking-tight text-text-primary capitalize">
+          <Calendar className="size-4 text-primary-400 hidden sm:block" />
+          <h2 className="text-sm sm:text-lg font-bold tracking-tight text-text-primary capitalize">
             {dateLabel}
           </h2>
         </div>
@@ -77,6 +78,7 @@ export default function CalendarHeader({
             variant="ghost"
             size="sm"
             onClick={() => onViewModeChange('week')}
+            aria-label="Visualizar semana"
             className={viewMode === 'week'
               ? 'bg-primary-400/15 text-primary-400 hover:bg-primary-400/20'
               : 'text-text-muted hover:text-text-primary'}
@@ -87,6 +89,7 @@ export default function CalendarHeader({
             variant="ghost"
             size="sm"
             onClick={() => onViewModeChange('day')}
+            aria-label="Visualizar dia"
             className={viewMode === 'day'
               ? 'bg-primary-400/15 text-primary-400 hover:bg-primary-400/20'
               : 'text-text-muted hover:text-text-primary'}

@@ -4,6 +4,7 @@ import { useAuth } from '@/hooks/useAuth'
 import { useCalendarChannel } from '@/hooks/useCalendarChannel'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import AriaLiveAnnouncer from '@/components/shared/AriaLiveAnnouncer'
 import { LogOut, Shield, Swords, WifiOff } from 'lucide-react'
 
 interface HeaderProps {
@@ -14,13 +15,13 @@ export default function Header({ variant }: HeaderProps) {
   const user = useAuthStore((s) => s.user)
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
   const { logout } = useAuth()
-  const { connected } = useCalendarChannel()
+  const { connected, announcement } = useCalendarChannel()
 
   return (
-    <header className="gradient-border bg-bg-secondary/80 backdrop-blur-md px-6 py-3">
+    <header className="gradient-border bg-bg-secondary/80 backdrop-blur-md px-4 sm:px-6 py-3">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         <div className="flex items-center gap-3">
-          <Link to="/" className="group flex items-center gap-2.5">
+          <Link to="/" className="group flex items-center gap-2.5" aria-label="Dota2Scrims home">
             <div className="flex size-8 items-center justify-center rounded-lg bg-primary-400/10 transition-colors group-hover:bg-primary-400/20">
               <Swords className="size-4 text-primary-400" />
             </div>
@@ -45,15 +46,16 @@ export default function Header({ variant }: HeaderProps) {
           )}
           {isAuthenticated ? (
             <>
-              <span className="text-sm text-text-secondary">{user?.email}</span>
+              <span className="hidden sm:inline text-sm text-text-secondary truncate max-w-[200px]">{user?.email}</span>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={logout}
+                aria-label="Sair da conta"
                 className="gap-1.5 text-text-muted hover:text-danger-400"
               >
-                <LogOut className="size-3.5" />
-                Sair
+                <LogOut className="size-4" />
+                <span className="hidden sm:inline">Sair</span>
               </Button>
             </>
           ) : (
@@ -77,6 +79,7 @@ export default function Header({ variant }: HeaderProps) {
           )}
         </div>
       </div>
+      <AriaLiveAnnouncer message={announcement} />
     </header>
   )
 }

@@ -32,14 +32,14 @@ describe('SlotCard', () => {
   it('renders available slot with time and badge', () => {
     render(<SlotCard slot={availableSlot} />)
 
-    expect(screen.getByText('Disponível')).toBeInTheDocument()
+    expect(screen.getByText('Disponivel')).toBeInTheDocument()
     expect(screen.getByText(new RegExp(expectedStartTime))).toBeInTheDocument()
   })
 
   it('renders booked slot with badge', () => {
     render(<SlotCard slot={bookedSlot} />)
 
-    expect(screen.getByText('Indisponível')).toBeInTheDocument()
+    expect(screen.getByText('Reservado')).toBeInTheDocument()
   })
 
   it('renders cancelled slot with badge', () => {

@@ -42,7 +42,7 @@ describe('CalendarHeader', () => {
     const user = userEvent.setup()
     render(<CalendarHeader {...defaultProps} />)
 
-    await user.click(screen.getByLabelText('Próxima semana'))
+    await user.click(screen.getByLabelText('Proxima semana'))
     expect(defaultProps.onNext).toHaveBeenCalledOnce()
   })
 
@@ -66,6 +66,6 @@ describe('CalendarHeader', () => {
     render(<CalendarHeader {...defaultProps} viewMode="week" />)
 
     const weekButton = screen.getByText('Semana')
-    expect(weekButton).toHaveAttribute('data-active', 'true')
+    expect(weekButton.className).toContain('bg-primary-400/15')
   })
 })

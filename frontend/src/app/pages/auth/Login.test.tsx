@@ -1,17 +1,13 @@
 import { expect, it } from 'vitest'
 import { axe } from 'vitest-axe'
 import { toHaveNoViolations } from 'vitest-axe/matchers'
-import { waitFor, screen } from '@testing-library/react'
 import { renderWithProviders } from '@/tests/utils'
-import ManagerDashboard from './ManagerDashboard'
+import Login from './Login'
 
 expect.extend({ toHaveNoViolations })
 
 it('should have no accessibility violations', async () => {
-  const { container } = renderWithProviders(<ManagerDashboard />)
-  await waitFor(() => {
-    expect(screen.getByText('Rock n Sports')).toBeInTheDocument()
-  })
+  const { container } = renderWithProviders(<Login />)
   const results = await axe(container)
   expect(results).toHaveNoViolations()
 })

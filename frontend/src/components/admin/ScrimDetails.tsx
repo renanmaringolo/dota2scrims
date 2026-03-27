@@ -89,7 +89,7 @@ export default function ScrimDetails({ scrim, onClose }: ScrimDetailsProps) {
         </DialogHeader>
 
         <div className="space-y-6">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div className="flex items-center gap-3">
               <Calendar className="size-4 text-text-muted" />
               <span className="text-sm text-text-primary">
@@ -168,7 +168,7 @@ export default function ScrimDetails({ scrim, onClose }: ScrimDetailsProps) {
                   <button
                     onClick={() => handleCopy(lobbyName)}
                     aria-label="Copiar lobby name"
-                    className="rounded p-1 text-text-muted hover:text-primary-400 transition-colors"
+                    className="rounded p-2 min-h-11 min-w-11 sm:min-h-0 sm:min-w-0 sm:p-1 flex items-center justify-center text-text-muted hover:text-primary-400 transition-colors"
                   >
                     <Copy className="size-3.5" />
                   </button>
@@ -180,7 +180,7 @@ export default function ScrimDetails({ scrim, onClose }: ScrimDetailsProps) {
                   <button
                     onClick={() => handleCopy(lobbyPassword)}
                     aria-label="Copiar lobby password"
-                    className="rounded p-1 text-text-muted hover:text-primary-400 transition-colors"
+                    className="rounded p-2 min-h-11 min-w-11 sm:min-h-0 sm:min-w-0 sm:p-1 flex items-center justify-center text-text-muted hover:text-primary-400 transition-colors"
                   >
                     <Copy className="size-3.5" />
                   </button>
@@ -211,7 +211,8 @@ export default function ScrimDetails({ scrim, onClose }: ScrimDetailsProps) {
           {scrim.status === 'scheduled' && !showCancelForm && (
             <button
               onClick={() => setShowCancelForm(true)}
-              className="w-full rounded-lg border border-danger-500/30 px-4 py-2 text-sm font-medium text-danger-400 hover:bg-danger-500/10 transition-colors"
+              aria-label="Cancelar scrim"
+              className="w-full rounded-lg border border-danger-500/30 px-4 py-3 min-h-11 text-sm font-medium text-danger-400 hover:bg-danger-500/10 transition-colors"
             >
               Cancelar Scrim
             </button>
@@ -226,6 +227,7 @@ export default function ScrimDetails({ scrim, onClose }: ScrimDetailsProps) {
                     setShowCancelForm(false)
                     setCancelReason('')
                   }}
+                  aria-label="Fechar formulario de cancelamento"
                   className="text-text-muted hover:text-text-secondary"
                 >
                   <X className="size-4" />
@@ -235,11 +237,13 @@ export default function ScrimDetails({ scrim, onClose }: ScrimDetailsProps) {
                 placeholder="Motivo do cancelamento"
                 value={cancelReason}
                 onChange={(e) => setCancelReason(e.target.value)}
+                aria-label="Motivo do cancelamento"
               />
               <button
                 onClick={handleCancel}
                 disabled={!cancelReason.trim() || cancelMutation.isPending}
-                className="w-full rounded-lg bg-danger-500 px-4 py-2 text-sm font-medium text-white hover:bg-danger-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                aria-label="Confirmar cancelamento da scrim"
+                className="w-full rounded-lg bg-danger-500 px-4 py-3 min-h-11 text-sm font-medium text-white hover:bg-danger-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {cancelMutation.isPending ? 'Cancelando...' : 'Confirmar Cancelamento'}
               </button>
