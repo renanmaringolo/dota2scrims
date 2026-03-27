@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { useCable } from '@/hooks/useCable'
+import { useSlotAnnouncer } from '@/hooks/useSlotAnnouncer'
 
 interface TimeSlotEvent {
   event: 'slot_created' | 'slot_booked' | 'slot_cancelled'
@@ -17,6 +18,7 @@ export function useCalendarChannel() {
   const queryClient = useQueryClient()
   const [connected, setConnected] = useState(false)
   const pollingRef = useRef<ReturnType<typeof setInterval>>()
+  const { message: announcement, announce } = useSlotAnnouncer()
 
   useEffect(() => {
     if (!consumer) return
@@ -33,8 +35,9 @@ export function useCalendarChannel() {
           queryClient.invalidateQueries({ queryKey: ['time-slots'] })
         }, 30_000)
       },
-      received(_message: TimeSlotEvent) {
+      received(message: TimeSlotEvent) {
         queryClient.invalidateQueries({ queryKey: ['time-slots'] })
+        announce(message)
       },
     })
 
@@ -42,7 +45,7 @@ export function useCalendarChannel() {
       subscription.unsubscribe()
       if (pollingRef.current) clearInterval(pollingRef.current)
     }
-  }, [consumer, queryClient])
+  }, [consumer, queryClient, announce])
 
-  return { connected }
+  return { connected, announcement }
 }

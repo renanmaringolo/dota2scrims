@@ -3,7 +3,6 @@ import { createBrowserRouter, type RouteObject } from 'react-router-dom'
 import PublicLayout from '@/app/layouts/PublicLayout'
 import AuthLayout from '@/app/layouts/AuthLayout'
 import AdminLayout from '@/app/layouts/AdminLayout'
-import PrivateRoute from '@/components/auth/PrivateRoute'
 import ManagerRoute from '@/components/auth/ManagerRoute'
 import AdminRoute from '@/components/auth/AdminRoute'
 

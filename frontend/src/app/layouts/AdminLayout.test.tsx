@@ -1,7 +1,7 @@
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import AdminLayout from './AdminLayout'
 
 vi.mock('@/stores/authStore', () => ({
@@ -18,6 +18,10 @@ vi.mock('@/stores/authStore', () => ({
 
 vi.mock('@/hooks/useAuth', () => ({
   useAuth: () => ({ logout: vi.fn() }),
+}))
+
+vi.mock('@/hooks/useCalendarChannel', () => ({
+  useCalendarChannel: () => ({ connected: true, announcement: '' }),
 }))
 
 function renderLayout(initialRoute = '/admin') {

@@ -49,10 +49,10 @@ describe('ScrimCalendar', () => {
     renderWithProviders(<ScrimCalendar />)
 
     await waitFor(() => {
-      expect(screen.getByText('Disponível')).toBeInTheDocument()
+      expect(screen.getByText('Disponivel')).toBeInTheDocument()
     })
 
-    expect(screen.getByText('Indisponível')).toBeInTheDocument()
+    expect(screen.getByText('Reservado')).toBeInTheDocument()
   })
 
   it('renders empty state when no slots', async () => {
@@ -80,6 +80,6 @@ describe('ScrimCalendar', () => {
 
     expect(screen.getByText('Hoje')).toBeInTheDocument()
     expect(screen.getByLabelText('Semana anterior')).toBeInTheDocument()
-    expect(screen.getByLabelText('Próxima semana')).toBeInTheDocument()
+    expect(screen.getByLabelText('Proxima semana')).toBeInTheDocument()
   })
 })

@@ -125,7 +125,7 @@ export default function TeamCreateForm() {
           )}
         />
 
-        <Button type="submit" disabled={createTeamMutation.isPending}>
+        <Button type="submit" className="w-full" disabled={createTeamMutation.isPending}>
           {createTeamMutation.isPending ? 'Criando...' : 'Criar Time'}
         </Button>
       </form>

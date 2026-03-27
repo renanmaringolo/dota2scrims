@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import { Swords, Calendar, Users, Zap } from 'lucide-react'
+import SkipLink from '@/components/shared/SkipLink'
 
 const features = [
   { icon: Calendar, text: 'Agende scrims em segundos' },
@@ -10,6 +11,7 @@ const features = [
 export default function AuthLayout() {
   return (
     <div className="flex min-h-screen bg-background">
+      <SkipLink />
       <div className="hidden w-1/2 items-center justify-center bg-grid-pattern lg:flex">
         <div className="relative flex flex-col items-center px-12">
           <div className="absolute -top-32 size-64 rounded-full bg-primary-400/5 blur-3xl" />
@@ -38,11 +40,11 @@ export default function AuthLayout() {
         </div>
       </div>
 
-      <div className="flex w-full items-center justify-center px-6 lg:w-1/2">
-        <div className="w-full max-w-md rounded-2xl border border-border-bright bg-bg-secondary/50 p-8 backdrop-blur-sm">
+      <main id="main-content" className="flex w-full items-center justify-center px-4 sm:px-6 lg:w-1/2">
+        <div className="w-full max-w-md rounded-2xl border border-border-bright bg-bg-secondary/50 p-6 sm:p-8 backdrop-blur-sm">
           <Outlet />
         </div>
-      </div>
+      </main>
     </div>
   )
 }

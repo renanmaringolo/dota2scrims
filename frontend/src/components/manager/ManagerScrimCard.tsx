@@ -68,7 +68,7 @@ export default function ManagerScrimCard({ scrim }: ManagerScrimCardProps) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="h-6 w-6 p-0"
+                    className="size-11 sm:h-6 sm:w-6 p-0"
                     aria-label="Copiar senha"
                     onClick={() => copyToClipboard(scrim.lobby_password!)}
                   >
@@ -90,6 +90,7 @@ export default function ManagerScrimCard({ scrim }: ManagerScrimCardProps) {
           <Button
             variant="destructive"
             size="sm"
+            aria-label={`Cancelar scrim contra ${scrim.team.name}`}
             onClick={() => setCancelOpen(true)}
           >
             Cancelar

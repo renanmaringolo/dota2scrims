@@ -71,7 +71,8 @@ export default function ScrimList({
             <button
               key={tab.label}
               onClick={() => onStatusFilterChange(tab.value)}
-              className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+              aria-label={`Filtrar por ${tab.label}`}
+              className={`rounded-lg px-3 py-2.5 min-h-11 sm:min-h-0 sm:py-1.5 text-sm font-medium transition-colors ${
                 statusFilter === tab.value
                   ? 'bg-primary-400/15 text-primary-400'
                   : 'text-text-muted hover:text-text-secondary hover:bg-bg-secondary/50'
@@ -88,6 +89,7 @@ export default function ScrimList({
             placeholder="Buscar por time..."
             value={searchQuery}
             onChange={handleSearchChange}
+            aria-label="Buscar scrims por nome do time"
             className="pl-9"
           />
         </div>
@@ -137,6 +139,7 @@ export default function ScrimList({
                     <TableCell className="text-right">
                       <button
                         onClick={() => onViewDetails?.(scrim)}
+                        aria-label={`Ver detalhes da scrim contra ${scrim.team.name}`}
                         className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium text-primary-400 hover:bg-primary-400/10 transition-colors"
                       >
                         <Eye className="size-3.5" />
@@ -171,7 +174,8 @@ export default function ScrimList({
                 </div>
                 <button
                   onClick={() => onViewDetails?.(scrim)}
-                  className="inline-flex items-center gap-1.5 text-xs font-medium text-primary-400 hover:text-primary-300 transition-colors"
+                  aria-label={`Ver detalhes da scrim contra ${scrim.team.name}`}
+                  className="inline-flex items-center gap-1.5 min-h-11 py-2 text-xs font-medium text-primary-400 hover:text-primary-300 transition-colors"
                 >
                   <Eye className="size-3.5" />
                   Detalhes

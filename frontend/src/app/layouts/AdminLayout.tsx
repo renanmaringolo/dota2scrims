@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Outlet, NavLink } from 'react-router-dom'
 import Header from '@/components/shared/Header'
+import SkipLink from '@/components/shared/SkipLink'
 import { LayoutDashboard, Clock, Swords, Menu, X } from 'lucide-react'
 
 const navItems = [
@@ -10,7 +11,7 @@ const navItems = [
 ]
 
 const navLinkClasses = ({ isActive }: { isActive: boolean }) =>
-  `flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all duration-200 ${
+  `flex items-center gap-3 rounded-lg px-3 py-3 min-h-11 text-sm transition-all duration-200 ${
     isActive
       ? 'bg-primary-400/10 text-primary-400 font-medium border border-primary-400/20'
       : 'text-text-muted hover:bg-bg-elevated hover:text-text-primary border border-transparent'
@@ -40,6 +41,7 @@ export default function AdminLayout() {
 
   return (
     <div className="min-h-screen bg-background bg-grid-pattern text-foreground">
+      <SkipLink />
       <Header variant="admin" />
       <div className="flex">
         <aside className="hidden md:block w-60 border-r border-border bg-bg-secondary/50 backdrop-blur-sm p-4">
@@ -50,7 +52,7 @@ export default function AdminLayout() {
           <button
             aria-label="Menu"
             onClick={() => setDrawerOpen(true)}
-            className="p-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-bg-elevated transition-colors"
+            className="p-2.5 min-h-11 min-w-11 flex items-center justify-center rounded-lg text-text-muted hover:text-text-primary hover:bg-bg-elevated transition-colors"
           >
             <Menu className="size-5" />
           </button>
@@ -72,9 +74,9 @@ export default function AdminLayout() {
                 <button
                   aria-label="Close menu"
                   onClick={() => setDrawerOpen(false)}
-                  className="p-1 rounded text-text-muted hover:text-text-primary"
+                  className="p-2 min-h-11 min-w-11 flex items-center justify-center rounded text-text-muted hover:text-text-primary"
                 >
-                  <X className="size-4" />
+                  <X className="size-5" />
                 </button>
               </div>
               <SidebarNav onNavigate={() => setDrawerOpen(false)} />
@@ -82,7 +84,7 @@ export default function AdminLayout() {
           </>
         )}
 
-        <main className="flex-1 p-8">
+        <main id="main-content" className="flex-1 p-4 sm:p-6 lg:p-8">
           <Outlet />
         </main>
       </div>

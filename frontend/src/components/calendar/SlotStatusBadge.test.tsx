@@ -4,12 +4,12 @@ import SlotStatusBadge from './SlotStatusBadge'
 describe('SlotStatusBadge', () => {
   it('renders available badge', () => {
     render(<SlotStatusBadge status="available" />)
-    expect(screen.getByText('Disponível')).toBeInTheDocument()
+    expect(screen.getByText('Disponivel')).toBeInTheDocument()
   })
 
   it('renders booked badge', () => {
     render(<SlotStatusBadge status="booked" />)
-    expect(screen.getByText('Indisponível')).toBeInTheDocument()
+    expect(screen.getByText('Reservado')).toBeInTheDocument()
   })
 
   it('renders cancelled badge', () => {

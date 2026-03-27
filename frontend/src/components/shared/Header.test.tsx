@@ -11,6 +11,10 @@ vi.mock('@/hooks/useAuth', () => ({
   useAuth: () => ({ logout: mockLogout }),
 }))
 
+vi.mock('@/hooks/useCalendarChannel', () => ({
+  useCalendarChannel: () => ({ connected: true, announcement: '' }),
+}))
+
 function renderHeader(variant: 'public' | 'auth' | 'admin') {
   return render(
     <MemoryRouter>

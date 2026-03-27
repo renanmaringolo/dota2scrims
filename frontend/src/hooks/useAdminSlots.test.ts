@@ -1,4 +1,4 @@
-import { renderHook, act, waitFor } from '@testing-library/react'
+import { renderHook, act } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { http, HttpResponse } from 'msw'
 import { describe, it, expect, beforeEach } from 'vitest'
@@ -57,7 +57,7 @@ describe('useAdminSlots', () => {
           },
         })
       }),
-      http.delete('/api/admin/time_slots/:id', ({ params }) => {
+      http.delete('/api/admin/time_slots/:id', () => {
         return new HttpResponse(null, { status: 204 })
       }),
     )

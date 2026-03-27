@@ -135,7 +135,7 @@ export default function TeamEditForm({ team }: TeamEditFormProps) {
 
         <PlayerList teamId={team.id} players={team.players} />
 
-        <Button type="submit" disabled={updateTeamMutation.isPending}>
+        <Button type="submit" className="w-full" disabled={updateTeamMutation.isPending}>
           {updateTeamMutation.isPending ? 'Salvando...' : 'Salvar'}
         </Button>
       </form>
