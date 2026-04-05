@@ -27,4 +27,6 @@ frontend/.env*.local
 *.code-workspace
 
 # Environment
-.env*.local
+.env
+.env.*
+!.env.example

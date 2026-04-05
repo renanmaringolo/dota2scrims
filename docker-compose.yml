@@ -5,13 +5,13 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: dota2scrims
-      POSTGRES_PASSWORD: dota2scrims_dev
-      POSTGRES_DB: dota2scrims_dev
+      POSTGRES_USER: ${POSTGRES_USER:-dota2scrims}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-dota2scrims_dev}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U dota2scrims -d dota2scrims_dev"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-dota2scrims} -d ${POSTGRES_DB:-dota2scrims_dev}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -50,11 +50,11 @@ services:
       redis:
         condition: service_healthy
     environment:
-      DATABASE_URL: postgres://dota2scrims:dota2scrims_dev@db:5432/dota2scrims_dev
+      DATABASE_URL: postgres://${POSTGRES_USER:-dota2scrims}:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@db:5432/${POSTGRES_DB:-dota2scrims_dev}
       REDIS_URL: redis://redis:6379/0
       RAILS_ENV: development
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY:-}
-      JWT_SECRET: ${JWT_SECRET:-dev_jwt_secret_dota2scrims_2024}
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env}
       SIDEKIQ_CONCURRENCY: 5
       ACTION_CABLE_URL: ws://localhost:3000/cable
       FRONTEND_URL: http://localhost:5173
@@ -109,11 +109,11 @@ services:
       redis:
         condition: service_healthy
     environment:
-      DATABASE_URL: postgres://dota2scrims:dota2scrims_dev@db:5432/dota2scrims_dev
+      DATABASE_URL: postgres://${POSTGRES_USER:-dota2scrims}:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@db:5432/${POSTGRES_DB:-dota2scrims_dev}
       REDIS_URL: redis://redis:6379/0
       RAILS_ENV: development
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY:-}
-      JWT_SECRET: ${JWT_SECRET:-dev_jwt_secret_dota2scrims_2024}
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env}
       SIDEKIQ_CONCURRENCY: 5
       ACTION_CABLE_URL: ws://localhost:3000/cable
       FRONTEND_URL: http://localhost:5173

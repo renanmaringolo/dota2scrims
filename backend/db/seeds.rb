@@ -1,18 +1,20 @@
 Time.zone = 'America/Sao_Paulo'
 
+seed_password = ENV.fetch('SEED_PASSWORD', SecureRandom.hex(16))
+
 admin = User.find_or_create_by!(email: 'admin@avalanche.gg') do |user|
-  user.password = 'password123'
+  user.password = seed_password
   user.role = :admin
   user.jti = SecureRandom.uuid
 end
-puts "User admin: #{admin.email} (#{admin.role})"
+puts "User admin: #{admin.email} (#{admin.role}) | password: #{seed_password}"
 
 manager = User.find_or_create_by!(email: 'manager@rocknsports.gg') do |user|
-  user.password = 'password123'
+  user.password = seed_password
   user.role = :manager
   user.jti = SecureRandom.uuid
 end
-puts "User manager: #{manager.email} (#{manager.role})"
+puts "User manager: #{manager.email} (#{manager.role}) | password: #{seed_password}"
 
 team = Team.find_or_create_by!(name: 'Rock n Sports', manager: manager) do |t|
   t.manager_name = 'Renan Proenca'
@@ -76,7 +78,7 @@ else
       challenger_team: team,
       status: :scheduled,
       lobby_name: 'AVL-RS-SCRIM',
-      lobby_password: 'scrim123',
+      lobby_password: SecureRandom.hex(6),
       server_host: :br,
     )
     first_available.update!(status: :booked)
